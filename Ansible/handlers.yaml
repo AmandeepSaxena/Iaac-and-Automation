@@ -1,0 +1,29 @@
+# we will use two handelrs in this playbook, here we are instaling apache 2 and reloading firewall with updated rules
+---
+- hosts: staging
+  name: Install
+  become: yes
+  tasks: 
+    - name: Install apache 2 on Ubuntu server
+      apt:
+        name: apache2
+        state: present
+        update_cache: yes
+    - name: Allow http traffic on UFW firewall
+      ufw: 
+        rule: allow
+        port: http
+        proto: tcp
+      notify:
+        - Restart apache2 
+        - Reload firewall         
+handlers: 
+  - name: Restart apache2
+    service: 
+      name: apache2
+      state: restart
+  - name: Reload firewall
+    service:
+      name: ufw
+      state: enabled 
+         
