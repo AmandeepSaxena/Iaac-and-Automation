@@ -8,7 +8,7 @@ class Car:
         self.name = name
         self.model = model
         self.price = price
-
+    
     def moving (self):
         print("car "+self.name+" is moving") 
 
