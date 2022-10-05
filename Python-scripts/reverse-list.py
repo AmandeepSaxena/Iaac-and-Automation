@@ -1,9 +1,8 @@
-list = list(input('Enter numbers in a list: '))
+# reversing list using slicing tenchinique
+def rev_list(olist):
+    list =[]
+    list = olist[::-1]
+    return(list)
 
-s = len(list)
-rev = [None]*s
-for i in list:
-    s = s-1
-    rev[s] = i
-print(rev)
-
+olist = list(input('Enter numbers in a list: '))
+print(rev_list(olist))
