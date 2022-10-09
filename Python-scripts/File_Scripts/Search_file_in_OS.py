@@ -2,7 +2,7 @@ import os
 import platform
 import string
 
-#for platform independent use platform.system == 'Windows na
+#for platform independent use platform.system == 'Windows' and use string.ascii_uppercase to get drive names
 file = 'test.txt'
 drives=['C:','D:','E:']
 for dri in drives:
