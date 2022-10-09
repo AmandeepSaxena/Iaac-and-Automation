@@ -1,6 +1,3 @@
-#Node Class
-from tkinter.messagebox import NO
-
 class Node:
 
     #function to initialize the node object
