@@ -1,5 +1,8 @@
 import os
-#for windows
+import platform
+import string
+
+#for platform independent use platform.system == 'Windows na
 file = 'test.txt'
 drives=['C:','D:','E:']
 for dri in drives:
@@ -7,13 +10,11 @@ for dri in drives:
     # r is path d is a list of directories and f is a list file in os.walk as list 
     for r,d,f in os.walk(dri):
         #now check each files in f list
-        print(f)
         for each_f in f:
             if each_f == file:
                 print("file found")
                 #join path of dir and file found anf give output
                 print(os.path.join(r,each_f))
-
 
 '''
 #for Linux
