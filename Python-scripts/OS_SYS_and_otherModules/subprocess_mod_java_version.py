@@ -9,10 +9,11 @@ sp = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PI
 
 rc = sp.wait #wait for execution 
 o,e = sp.communicate() # whether output or error it will pass that value
+print(rc)
 if rc == 0:
     if bool(o) == True: # never happens as java prints version in stderr
         print(o)
     if bool(o) == False and bool(e) == True:
-        print(e)
+        print(e.splitlines()[0].split()[2].strip("\\"))
 else:
     print(e)
