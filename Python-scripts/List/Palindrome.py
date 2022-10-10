@@ -9,7 +9,7 @@ after dividing the original number is 12 - so when org number < reverted number 
 
 '''
 def IsPalindrome(num):
-    #edge case = negative numbers can't become palindrome 
+    #edge case1 = negative numbers can't become palindrome: -123 minus ans 3 can't be same 
     if(num<0 or (num  % 10 == 0 & num !=0)):
         return False
     else:
