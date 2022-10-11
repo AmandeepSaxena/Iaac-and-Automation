@@ -1,6 +1,6 @@
 import re
 import string
-str = open("D:\\r@at\\test.txt","r").read()
+str = open("E:\\test\\test.txt","r").read()
 '''
 \w match any alphanumeric char both uppercase and lower case and 0-9
 .%+- - match any of these chars
