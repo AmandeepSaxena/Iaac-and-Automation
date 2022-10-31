@@ -5,7 +5,7 @@ def check_anagram(s1,s2):
     x.sort()
     y = [s2[j] for j in range(0,len(s2))]
     y.sort()
-    print(y)
+    print(x,y)
     if x==y: 
         print(f"Strings are anagrams")
     else:
