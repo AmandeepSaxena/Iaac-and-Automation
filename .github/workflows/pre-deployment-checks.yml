@@ -13,5 +13,5 @@ jobs:
       run: |
         set -e
         for file in $(ls *.yaml); do
-          kubectl apply --dry-run --validate=true -f $file
+          kubectl apply --dry-run=client --validate=true -f $file
         done
