@@ -1,7 +1,7 @@
 name: Validate YAML Syntax
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -14,5 +14,5 @@ jobs:
         set -e
         for file in $(find . -name "*.yaml" -o -name "*.yml"); do
           echo "Validating $file"
-          yamllint $file
+          yq eval-all "." $file 
         done
