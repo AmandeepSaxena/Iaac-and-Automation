@@ -12,7 +12,8 @@ jobs:
     - name: Validate YAML syntax
       run: |
         set -e
-        for file in $(ls *.yaml); do
-          kubectl apply --dry-run --validate=true -f $file
+        for file in $(find . -name "*.yaml" -o -name "*.yml"); do
+          echo "Validating $file"
+          yq eval-all "." $file 
         done
 
