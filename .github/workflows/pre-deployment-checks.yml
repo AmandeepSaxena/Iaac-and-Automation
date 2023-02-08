@@ -12,7 +12,7 @@ jobs:
     - name: Validate YAML syntax
       run: |
         set -e
-        for file in $(find . -name "*.yaml" -o "*.yml"); do
+        for file in $(find . -name "*.yaml" -o -name "*.yml"); do
           echo "Validating $file"
           yamllint $file
         done
