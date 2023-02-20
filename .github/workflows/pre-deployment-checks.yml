@@ -26,8 +26,8 @@ jobs:
       - run: |
          sudo snap install yq
          readarray -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
-          for added_modified_file in "${added_modified_files[@]}"; do
-            echo "Files that are added or modified:  ${added_modified_file}."
+          for file in "${added_modified_files[@]}"; do
+            echo "Files that are added or modified:  $file."
           done
           
 #          for file in ${added_modified_file[@]};do
