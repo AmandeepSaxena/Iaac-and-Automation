@@ -19,10 +19,12 @@ jobs:
         with:
           python-version: 3.8
       - id: files
+        #https://github.com/jitterbit/get-changed-files#get-all-removed-files-as-json
         uses: jitterbit/get-changed-files@v1
         with:
           format: 'json'
       - run: |
+         snap install yq
          readarray -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
           for added_modified_file in "${added_modified_files[@]}"; do
             echo "Files that are added or modified:  ${added_modified_file}."
