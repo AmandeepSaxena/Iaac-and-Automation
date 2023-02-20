@@ -1,6 +1,10 @@
-read:
-- to: 
-    the inccorect format
-    - one
-    two
-    - threee;:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: example-pod
+  annotations:
+    serviceAccountRoleArn: arn:aws:iam::141592612890:policy/kms-prod-nodal
+spec:
+  containers:
+  - name: example-container
+    image: nginx-name-aws
