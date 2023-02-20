@@ -1,14 +1,13 @@
-name: SDLC
+name:  Pre-Deployment Validation
 on: 
   workflow_dispatch:
   pull_request:
-    types:
-      - opened
-      - reopened
+   types: [opened, reopened, synchronize]
 
 jobs:
-  check_prs:
-    runs-on: ubuntu-latest
+  validate:
+    runs-on: self-hosted
+    #runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - uses: actions/checkout@v2
@@ -19,9 +18,15 @@ jobs:
         uses: actions/setup-python@v2.2.2
         with:
           python-version: 3.8
-      - name: Execute Python Script
+      - name: Validate YAML syntax
         env: 
           GIT_TOKEN: ${{ github.token }}
         run: |
           pip3 install requests
           python3 ./.github/actions/PR_created.py
+          set -e
+          snap install yq
+          for file in ${{ steps.list-files.outputs.pullRequestFiles }}; do
+            echo "Validating $file"
+            yq eval-all "." $file 
+          done
