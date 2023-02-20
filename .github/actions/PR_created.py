@@ -4,7 +4,7 @@ import logging
 import datetime
 import requests
 
-owner_and_repo = "razorpay/vishnu"
+owner_and_repo = "razorpay/AmandeepSaxena"
 
 
 def get_pr_number():
