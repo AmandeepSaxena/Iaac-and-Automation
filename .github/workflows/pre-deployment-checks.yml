@@ -30,7 +30,7 @@ jobs:
             echo "Files that are added or modified:  ${added_modified_file}."
           done
           
-          for file in ${added_modified_file[@]}
+          for file in ${added_modified_file[@]};do
             echo "Validating: $file"
             #yq eval-all "." $file 
           done
