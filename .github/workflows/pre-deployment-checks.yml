@@ -6,8 +6,8 @@ on:
 
 jobs:
   validate:
-    #runs-on: self-hosted
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    #runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - uses: actions/checkout@v2
@@ -32,5 +32,5 @@ jobs:
           
           for file in ${added_modified_file[@]};do
             echo "Validating: $file"
-            yq $file 
+            yq eval-all "." $file 
           done
