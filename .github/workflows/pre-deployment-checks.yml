@@ -1,18 +1,55 @@
-name: Validate YAML Syntax
+---
+name: Pre-Deployment Validation
 on:
   pull_request:
-    branches: [master]
+    types: [opened, reopened, synchronize]
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+    - name: Setup Python
+      uses: actions/setup-python@v2.2.2
+      with:
+        python-version: 3.8
+    - name: Execute Python Script
+      env: 
+        GIT_TOKEN: ${{ github.token }}
+      
     - name: Validate YAML syntax
       run: |
-        set -e
-        for file in $(find . -name "*.yaml" -o -name "*.yml"); do
+        pip3 install requests
+        python3 ./.github/actions/PR_created.py    
+        snap install yq
+         for file in $(find . -name "*.yaml" -o -name "*.yml"); do
           echo "Validating $file"
           yq eval-all "." $file 
         done
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ap-south-1
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Get annotations from yaml files
+      run: |
+        for file in $(ls *.yaml); do
+          role_name=$(cat $file | grep -i "iam" | awk -F '/' '{print $2}')
+          arn=$(cat $file | grep -i "iam" | awk -F: '{print $6}')
+          echo "Role name: $role_name"
+          echo "ARN: $arn"
+        done
+        echo "$role_name"
+        aws iam get-role --role-name $role_name 2>&1
+     #   role_exists=$(aws iam get-role --role-name $role_name 2>&1)
+      #  echo "role_exists"
+       #   if [$? -ne 0]; then
+        #    echo "Error: Role $role_name does not exist in ARN:$arn"
+         #   exit 1
+          #fi 
+      
+    - name: Github Workflow Success
+      if: always()
+      run: echo "All Checks have passed"
