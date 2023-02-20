@@ -6,4 +6,4 @@ metadata:
     serviceAccountRoleArn: arn:aws:iam::141592612890:policy/kms-prod-nodal
 spec:
   containers:
-    image: nginx-name-aws
+    image: nginx-name-awss
