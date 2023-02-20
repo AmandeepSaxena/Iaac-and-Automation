@@ -24,12 +24,12 @@ jobs:
         with:
           format: 'json'
       - run: |
-         sudo snap install yq
-         readarray -t added_modified_files <<<(printf '%s,' '${{ steps.files.outputs.added_modified }}')
+         #sudo snap install yq
+
+         readarray -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
           for added_modified_file in "${added_modified_files[@]}"; do
-            echo "Do something with this ${added_modified_file}."
+            echo "Files that are added or modified:  ${added_modified_file}."
           done
-          
 #          for file in ${added_modified_file[@]};do
  #           echo "Validating: $file"
   #          yq eval-all "." $file 
