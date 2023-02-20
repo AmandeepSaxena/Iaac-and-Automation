@@ -18,15 +18,12 @@ jobs:
         uses: actions/setup-python@v2.2.2
         with:
           python-version: 3.8
-      - name: Validate YAML syntax
-        env: 
-          GIT_TOKEN: ${{ github.token }}
-        run: |
-          pip3 install requests
-          python3 ./.github/actions/PR_created.py
-          set -e
-          snap install yq
-          for file in ${{ steps.list-files.outputs.pullRequestFiles }}; do
-            echo "Validating $file"
-            yq eval-all "." $file 
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: 'json'
+      - run: |
+         readarray -t added_modified_files < <(printf '%s,' '${{ steps.files.outputs.added_modified }}')
+          for added_modified_file in "${added_modified_files[@]}"; do
+            echo "Do something with this ${added_modified_file}."
           done
