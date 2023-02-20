@@ -22,7 +22,7 @@ jobs:
         #https://github.com/jitterbit/get-changed-files#get-all-removed-files-as-json
         uses: jitterbit/get-changed-files@v1
         with:
-          format: 'json'
+          format: 'csv'
       - run: |
          #sudo snap install yq
 
