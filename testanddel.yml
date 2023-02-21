@@ -7,4 +7,4 @@ metadata:
 spec:
   containers:
   - name: example-container
-    image: nginx-name-aws-ssssss
+    image: nginx-name-aws-ssss
